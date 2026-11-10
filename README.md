@@ -131,6 +131,41 @@ curl -X POST http://localhost:8000/generate/ \
 5. **Retrieve** — a question is embedded and the top-k chunks are found by cosine similarity.
 6. **Generate** — the chunks are passed to the LLM with instructions to cite file paths.
 
+## Deployment
+
+### Backend — Render
+
+The repository includes a `render.yaml` blueprint, so deployment is mostly automatic:
+
+1. Push the repo to GitHub.
+2. In the [Render Dashboard](https://dashboard.render.com), choose **New → Blueprint** and connect this repository.
+3. Render reads `render.yaml` and creates the web service.
+4. Enter your **`GEMINI_API_KEY`** when prompted — it is never stored in the repo.
+5. After the deploy finishes, copy the service URL (e.g. `https://ai-codebase-assistant-api.onrender.com`).
+6. Verify it: `https://<service-url>/health/` should return `{"status":"ok", ...}`.
+
+**Manual setup instead:** **New → Web Service**, set **Root Directory** to `backend`, build command `pip install -r requirements.txt`, start command `uvicorn app.main:app --host 0.0.0.0 --port $PORT`, then add the variables from `backend/.env.example` plus `PYTHON_VERSION=3.12.7`.
+
+**Free-tier notes:**
+
+- The instance sleeps after ~15 minutes of inactivity; the first request can take 30–60 seconds.
+- Storage is ephemeral: uploaded repositories and vectors are lost on restart or redeploy. Re-upload the project after a restart.
+- Gemini free-tier embedding limits still apply.
+
+### Frontend — Vercel
+
+1. In [Vercel](https://vercel.com/new), import the same repository.
+2. Set **Root Directory** to `frontend` (Vite is detected automatically).
+3. Add an environment variable: **`VITE_API_URL`** = your Render URL, without a trailing slash.
+4. Deploy.
+
+`frontend/vercel.json` already rewrites routes to `index.html`, so deep links like `/chat` and `/history` work.
+
+### After deploying
+
+- On Render, change `CORS_ORIGINS` from `*` to your Vercel URL, e.g. `https://your-app.vercel.app`.
+- Optionally add the live links to this README.
+
 ## Limits & Notes
 
 - Each upload replaces the previously indexed repository.

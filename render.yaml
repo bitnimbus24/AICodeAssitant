@@ -1,0 +1,27 @@
+# Render Blueprint for the FastAPI backend.
+# Deploy: Render Dashboard -> New -> Blueprint -> select this repository.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: ai-codebase-assistant-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      # Set this in the Render dashboard; never commit the real key.
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: LLM_MODEL
+        value: gemini-3.5-flash-lite
+      - key: EMBEDDING_MODEL
+        value: gemini-embedding-001
+      - key: VECTOR_DB_PATH
+        value: app/database/vectorstore
+      # Restrict this to your Vercel URL after the frontend is deployed.
+      - key: CORS_ORIGINS
+        value: "*"
