@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyi
+*.pdb
+*.egg
+*.egg-info/
+*.manifest
+*.spec
+*.log
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+backend/.env
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# FastAPI / Uvicorn
+*.db
+*.sqlite3
+
+# Backend runtime data
+backend/app/uploads/
+backend/app/workspace/
+backend/app/database/
+
+# Frontend (Node / React / Lovable)
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.production.local
+frontend/.env.test.local
+frontend/.cache/
+frontend/.next/
+frontend/out/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Mac / Linux
+*.swp
+*~
