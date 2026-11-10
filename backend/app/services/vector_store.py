@@ -5,7 +5,12 @@ import pickle
 from app.config import Settings
 
 settings = Settings()
+
+# Resolve relative paths against backend/ so the app works from any directory.
+BACKEND_DIR = Path(__file__).resolve().parents[2]
 VECTOR_STORE_PATH = Path(settings.VECTOR_DB_PATH)
+if not VECTOR_STORE_PATH.is_absolute():
+    VECTOR_STORE_PATH = BACKEND_DIR / VECTOR_STORE_PATH
 
 # Ensure vectorstore folder exists
 VECTOR_STORE_PATH.mkdir(parents=True, exist_ok=True)

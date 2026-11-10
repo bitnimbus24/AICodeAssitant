@@ -3,6 +3,6 @@ uvicorn[standard]
 pydantic==2.12.5
 pydantic-settings
 openai
-jiter==0.18.0
+jiter==0.18.0; sys_platform == "win32"
 numpy
 python-multipart

@@ -2,7 +2,9 @@ import json
 import shutil
 from pathlib import Path
 
-WORKSPACE_ROOT = Path("app/workspace")
+# Resolve relative to backend/app so the app works from any working directory.
+APP_DIR = Path(__file__).resolve().parent.parent
+WORKSPACE_ROOT = APP_DIR / "workspace"
 FILES_DIR = WORKSPACE_ROOT / "files"
 MANIFEST_FILE = WORKSPACE_ROOT / "manifest.json"
 

@@ -144,7 +144,7 @@ The repository includes a `render.yaml` blueprint, so deployment is mostly autom
 5. After the deploy finishes, copy the service URL (e.g. `https://ai-codebase-assistant-api.onrender.com`).
 6. Verify it: `https://<service-url>/health/` should return `{"status":"ok", ...}`.
 
-**Manual setup instead:** **New → Web Service**, set **Root Directory** to `backend`, build command `pip install -r requirements.txt`, start command `uvicorn app.main:app --host 0.0.0.0 --port $PORT`, then add the variables from `backend/.env.example` plus `PYTHON_VERSION=3.12.7`.
+**Manual setup instead:** **New → Web Service**, leave **Root Directory** empty (repo root), build command `pip install -r requirements.txt`, start command `uvicorn main:app --host 0.0.0.0 --port $PORT`, then add the variables from `backend/.env.example` plus `PYTHON_VERSION=3.12.7`.
 
 **Free-tier notes:**
 
